@@ -4,27 +4,26 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
+
+// Swagger configuration
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 // --------------------------
 // Configure DbContext
 // --------------------------
-// This registers the ClinicManagerDbContext with the DI container
-// and tells EF Core to use SQL Server with the connection string
 builder.Services.AddDbContext<ClinicManagerDbContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("ClinicManagerDB")));
-
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-	// Enable OpenAPI (Swagger) in Development
-	app.MapOpenApi();
+	// Enable Swagger UI in Development
+	app.UseSwagger();
+	app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection(); // Redirect HTTP requests to HTTPS

@@ -1,0 +1,35 @@
+Proyecto ClinicManager – Resumen de progreso
+1️⃣ Estructura del proyecto
+Carpeta principal: ClinicManager.API
+Subcarpetas creadas:
+Models → Contiene las 10 clases que representan tus tablas de la base de datos.
+Data → Contiene ClinicManagerDbContext.cs, la clase de EF Core que conecta los modelos con SQL Server.
+Controllers → Vacía, será donde crearás los endpoints Web API.
+Archivos de configuración:
+appsettings.json → Cadena de conexión a la base de datos y logging.
+appsettings.Development.json → Configuración específica de desarrollo.
+2️⃣ Base de datos
+Base de datos creada: ClinicManagerDB en SQL Server.
+Tablas creadas y scripts listos:
+Users, Roles, UserRoles
+Doctors, DocumentTypes, Patients
+AppointmentStatus, Appointments
+RecordTypes, MedicalRecords
+Cada tabla tiene su clase correspondiente en Models.
+3️⃣ Clases Models
+10 clases Models completas, con propiedades que reflejan los campos de las tablas.
+Relaciones de navegación implementadas donde corresponde (ICollection<> o referencias 1:1).
+Nullable (?) usado para campos opcionales.
+4️⃣ Entity Framework Core
+Paquetes instalados:
+Microsoft.EntityFrameworkCore.SqlServer
+Microsoft.EntityFrameworkCore.Tools
+ClinicManagerDbContext.cs creado y configurado con todos los DbSet<> y relaciones.
+5️⃣ Program.cs
+Configurado para:
+Controllers
+OpenAPI/Swagger
+DbContext con SQL Server
+Código listo para recibir inyección de dependencias de ClinicManagerDbContext en cualquier Controller.
+6️⃣ Repositorio Git
+.vs y archivos temporales ignorados correctamente con .gitignore.

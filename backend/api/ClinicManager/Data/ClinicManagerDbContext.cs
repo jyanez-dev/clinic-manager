@@ -22,12 +22,12 @@ namespace ClinicManager.Data
 		public DbSet<RecordType> RecordTypes { get; set; }
 		public DbSet<MedicalRecord> MedicalRecords { get; set; }
 
-		// Si quieres, aquí se pueden configurar relaciones y llaves compuestas
+		// Here you can configure relationships and composite keys
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
 
-			// Ejemplo de llave compuesta para UserRoles
+			// Example of a composite key for UserRoles
 			modelBuilder.Entity<UserRole>()
 				.HasKey(ur => new { ur.UserId, ur.RoleId });
 
@@ -37,7 +37,7 @@ namespace ClinicManager.Data
 				.WithOne(d => d.User)
 				.HasForeignKey<Doctor>(d => d.UserId);
 
-			// Aquí se pueden agregar más configuraciones según tus relaciones
+			// Additional configurations can be added here based on your relationships
 		}
 	}
 }

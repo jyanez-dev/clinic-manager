@@ -158,3 +158,6 @@ D:\Projects\ClinicManager\backend\api\ClinicManager\obj\Debug\net10.0\refint\Cli
 D:\Projects\ClinicManager\backend\api\ClinicManager\obj\Debug\net10.0\ClinicManager.pdb
 D:\Projects\ClinicManager\backend\api\ClinicManager\obj\Debug\net10.0\ClinicManager.genruntimeconfig.cache
 D:\Projects\ClinicManager\backend\api\ClinicManager\obj\Debug\net10.0\ref\ClinicManager.dll
+D:\Projects\ClinicManager\backend\api\ClinicManager\bin\Debug\net10.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\Projects\ClinicManager\backend\api\ClinicManager\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\Projects\ClinicManager\backend\api\ClinicManager\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
