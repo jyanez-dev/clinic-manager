@@ -1,4 +1,6 @@
-﻿namespace ClinicManager.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ClinicManager.Models
 {
 	public class Patient
 	{
@@ -21,9 +23,11 @@
 		public string? Obs { get; set; }
 		public bool Status { get; set; } = true;
 		public int? CreateUser { get; set; }
+		[ForeignKey("CreateUser")]
 		public User? CreateUserNav { get; set; }
 		public DateTime CreateDate { get; set; }
 		public int? EditUser { get; set; }
+		[ForeignKey("EditUser")]
 		public User? EditUserNav { get; set; }
 		public DateTime? EditDate { get; set; }
 
