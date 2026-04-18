@@ -1,3 +1,4 @@
+select * from Users
 select * from Appointments
 select * from AppointmentStatus
 select * from Doctors
@@ -7,4 +8,3 @@ select * from Patients
 select * from RecordTypes
 select * from roles
 select * from UserRoles
-select * from Users

@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ClinicManager.Data;
-using ClinicManager.Models;
+﻿using ClinicManager.Data;
+using ClinicManager.DTOs.Doctors;
 using ClinicManager.DTOs.Users;
+using ClinicManager.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Numerics;
 
 namespace ClinicManager.Controllers
 {
@@ -61,37 +64,63 @@ namespace ClinicManager.Controllers
 			return user;
 		}
 
-		// POST: api/users
-		// Creates a new user
-		[HttpPost]
-		public async Task<ActionResult<User>> CreateUser(User user)
-		{
-			_context.Users.Add(user);
-			await _context.SaveChangesAsync();
+        // POST: api/users
+        // Creates a new user
+        [HttpPost]
+        public async Task<ActionResult<User>> CreateUser(CreateUserDto dto)
+        {
+            var user = new User
+            {
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                UserName = dto.UserName,
+                PasswordHash = dto.PasswordHash,
+                Email = dto.EmailAddress,
+                Phone = dto.Phone,
+                IsActive = true,
+                CreateDate = DateTime.Now
+            };
 
-			return CreatedAtAction(nameof(GetUser), new { id = user.UserId }, user);
-		}
+            _context.Users.Add(user);
 
-		// PUT: api/users/5
-		// Updates an existing user
-		[HttpPut("{id}")]
-		public async Task<IActionResult> UpdateUser(int id, User user)
-		{
-			if (id != user.UserId)
-			{
-				return BadRequest();
-			}
+            await _context.SaveChangesAsync();
 
-			_context.Entry(user).State = EntityState.Modified;
+            return CreatedAtAction(nameof(GetUser),
+                new { id = user.UserId },
+                user);
+        }
 
-			await _context.SaveChangesAsync();
 
-			return NoContent();
-		}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, UpdateUserDto dto)
+        {
+            if (id != dto.UserId)
+                return BadRequest();
 
-		// DELETE: api/users/5
-		// Deletes a user
-		[HttpDelete("{id}")]
+            var user = await _context.Users.FindAsync(id);
+
+            if (user == null)
+                return NotFound();
+
+
+			user.FirstName = dto.FirstName;
+			user.LastName = dto.LastName;
+			user.UserName = dto.UserName;
+			user.Email = dto.Email;
+			user.Phone = dto.Phone;
+			user.IsActive = true;
+			user.EditDate = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+
+
+        // DELETE: api/users/5
+        // Deletes a user
+        [HttpDelete("{id}")]
 		public async Task<IActionResult> DeleteUser(int id)
 		{
 			var user = await _context.Users.FindAsync(id);

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\ClinicManager\\backend\\api\\ClinicManager\\ClinicManager.csproj": {}
+    "C:\\Projects\\ClinicManager\\backend\\api\\ClinicManager\\ClinicManager.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\ClinicManager\\backend\\api\\ClinicManager\\ClinicManager.csproj": {
+    "C:\\Projects\\ClinicManager\\backend\\api\\ClinicManager\\ClinicManager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\ClinicManager\\backend\\api\\ClinicManager\\ClinicManager.csproj",
+        "projectUniqueName": "C:\\Projects\\ClinicManager\\backend\\api\\ClinicManager\\ClinicManager.csproj",
         "projectName": "ClinicManager",
-        "projectPath": "D:\\Projects\\ClinicManager\\backend\\api\\ClinicManager\\ClinicManager.csproj",
-        "packagesPath": "C:\\Users\\Alexander\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\ClinicManager\\backend\\api\\ClinicManager\\obj\\",
+        "projectPath": "C:\\Projects\\ClinicManager\\backend\\api\\ClinicManager\\ClinicManager.csproj",
+        "packagesPath": "C:\\Users\\jayrc\\.nuget\\packages\\",
+        "outputPath": "C:\\Projects\\ClinicManager\\backend\\api\\ClinicManager\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Alexander\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jayrc\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

@@ -688,8 +688,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "user",
-        "Type": "ClinicManager.Models.User",
+        "Name": "dto",
+        "Type": "ClinicManager.DTOs.Users.CreateUserDto",
         "IsRequired": true
       }
     ],
@@ -745,8 +745,8 @@
         "IsRequired": true
       },
       {
-        "Name": "user",
-        "Type": "ClinicManager.Models.User",
+        "Name": "dto",
+        "Type": "ClinicManager.DTOs.Users.UpdateUserDto",
         "IsRequired": true
       }
     ],
