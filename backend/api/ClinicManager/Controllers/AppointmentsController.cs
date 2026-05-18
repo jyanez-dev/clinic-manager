@@ -37,7 +37,7 @@ namespace ClinicManager.Controllers
 					AppointmentDateTime = a.AppointmentDateTime,
 
 					AppointmentStatusId = a.AppointmentStatusId,
-					StatusName = a.AppointmentStatus.Description,
+					StatusName = a.AppointmentStatus.Name,
 
 					Description = a.Description,
 					Amount = a.Amount
@@ -131,7 +131,7 @@ namespace ClinicManager.Controllers
 					AppointmentDateTime = a.AppointmentDateTime,
 
 					AppointmentStatusId = a.AppointmentStatusId,
-					StatusName = a.AppointmentStatus.Description,
+					StatusName = a.AppointmentStatus.Name,
 
 					Description = a.Description,
 					Amount = a.Amount

@@ -16,9 +16,11 @@ namespace ClinicManager.Models
 		public bool IsActive { get; set; }
 		public DateTime CreateDate { get; set; }
 		public DateTime? EditDate { get; set; }
-
-		// Navigation properties
-		public ICollection<UserRole>? UserRoles { get; set; }
+		public int CreateUser { get; set; }
+       	public int? EditUser { get; set; }
+               
+        // Navigation properties
+        public ICollection<UserRole>? UserRoles { get; set; }
 		public Doctor? Doctor { get; set; }
 	}
 }

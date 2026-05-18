@@ -21,9 +21,13 @@ namespace ClinicManager.Data
 		public DbSet<Appointment> Appointments { get; set; }
 		public DbSet<RecordType> RecordTypes { get; set; }
 		public DbSet<MedicalRecord> MedicalRecords { get; set; }
+		public DbSet<Specialty> Specialties { get; set; }
+		public DbSet<DoctorSpecialty> DoctorSpecialties { get; set; }
 
-		// Here you can configure relationships and composite keys
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+
+        // Here you can configure relationships and composite keys
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
 

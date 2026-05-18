@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ClinicManager.Data;
-using ClinicManager.Models;
+﻿using ClinicManager.Data;
+using ClinicManager.DTOs.Doctors;
 using ClinicManager.DTOs.UserRoles;
+using ClinicManager.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClinicManager.Controllers
 {
@@ -30,7 +31,7 @@ namespace ClinicManager.Controllers
 					UserName = ur.User.UserName,
 
 					RoleId = ur.RoleId,
-					RoleName = ur.Role.RoleName
+					RoleName = ur.Role.Name
 				})
 				.ToListAsync();
 
@@ -45,8 +46,10 @@ namespace ClinicManager.Controllers
 			var userRole = new UserRole
 			{
 				UserId = dto.UserId,
-				RoleId = dto.RoleId
-			};
+				RoleId = dto.RoleId,
+                CreateDate = DateTime.Now,
+                CreateUser = dto.CreateUser
+            };
 
 			_context.UserRoles.Add(userRole);
 			await _context.SaveChangesAsync();
@@ -63,11 +66,11 @@ namespace ClinicManager.Controllers
 				new { userId = userRole.UserId, roleId = userRole.RoleId },
 				result);
 		}
-
-		// PUT: api/userroles
-		// Updates an existing relationship (not commonly used for join tables)
-		[HttpPut]
-		public async Task<IActionResult> UpdateUserRole(UpdateUserRoleDto dto)
+/*
+        // PUT: api/userroles
+        // Updates an existing relationship (not commonly used for join tables)
+       // [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUserRole(UpdateUserRoleDto dto)
 		{
 			var userRole = await _context.UserRoles
 				.FirstOrDefaultAsync(ur =>
@@ -77,15 +80,48 @@ namespace ClinicManager.Controllers
 			if (userRole == null)
 				return NotFound();
 
-			// No fields to update in a join table
-			await _context.SaveChangesAsync();
+            userRole.EditDate = DateTime.Now;
+            userRole.EditUser = dto.EditUser;
+
+
+            // No fields to update in a join table
+            await _context.SaveChangesAsync();
 
 			return NoContent();
-		}
+		}*/
 
-		// DELETE: api/userroles
-		// Deletes a user-role relationship
-		[HttpDelete]
+/*
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateDoctor(int id, UpdateDoctorDto dto)
+        {
+            if (id != dto.DoctorId)
+                return BadRequest();
+
+            var doctor = await _context.Doctors.FindAsync(id);
+
+            if (doctor == null)
+                return NotFound();
+
+            doctor.UserId = dto.UserId;
+            doctor.Specialty = dto.Specialty;
+            doctor.Active = dto.Active;
+            doctor.EditDate = DateTime.Now;
+            doctor.EditUser = dto.EditUser;
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+*/
+
+
+
+
+
+        // DELETE: api/userroles
+        // Deletes a user-role relationship
+        [HttpDelete]
 		public async Task<IActionResult> DeleteUserRole(int userId, int roleId)
 		{
 			var userRole = await _context.UserRoles

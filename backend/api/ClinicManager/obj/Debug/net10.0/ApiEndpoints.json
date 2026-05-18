@@ -598,48 +598,6 @@
   },
   {
     "ContainingType": "ClinicManager.Controllers.UserRolesController",
-    "Method": "CreateUserRole",
-    "RelativePath": "api/UserRoles",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "ClinicManager.DTOs.UserRoles.CreateUserRoleDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "ClinicManager.DTOs.UserRoles.UserRoleDto",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "ClinicManager.Controllers.UserRolesController",
-    "Method": "UpdateUserRole",
-    "RelativePath": "api/UserRoles",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "ClinicManager.DTOs.UserRoles.UpdateUserRoleDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ClinicManager.Controllers.UserRolesController",
     "Method": "DeleteUserRole",
     "RelativePath": "api/UserRoles",
     "HttpMethod": "DELETE",
@@ -763,6 +721,27 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ClinicManager.Controllers.UsersController",
+    "Method": "UpdateUserRoles",
+    "RelativePath": "api/Users/{id}/roles",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "ClinicManager.DTOs.Users.UpdateUserRolesDto",
         "IsRequired": true
       }
     ],

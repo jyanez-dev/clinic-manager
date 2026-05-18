@@ -25,7 +25,7 @@ namespace ClinicManager.Controllers
 				.Select(x => new AppointmentStatusDto
 				{
 					AppointmentStatusId = x.AppointmentStatusId,
-					Description = x.Description
+					Name = x.Name
 				})
 				.ToListAsync();
 		}
@@ -36,7 +36,7 @@ namespace ClinicManager.Controllers
 		{
 			var entity = new AppointmentStatus
 			{
-				Description = dto.Description
+				Name = dto.Name
 			};
 
 			_context.AppointmentStatuses.Add(entity);
@@ -54,7 +54,7 @@ namespace ClinicManager.Controllers
 			if (entity == null)
 				return NotFound();
 
-			entity.Description = dto.Description;
+			entity.Name = dto.Name;
 
 			await _context.SaveChangesAsync();
 

@@ -9,10 +9,10 @@ namespace ClinicManager.DTOs.Doctors
 
 		[Required]
 		public int UserId { get; set; }
+				
+        [Required]
+        public int EditUser { get; set; }
 
-		[Required]
-		public string Specialty { get; set; } = string.Empty;
-
-		public bool Active { get; set; }
+        public bool Active { get; set; }
 	}
 }

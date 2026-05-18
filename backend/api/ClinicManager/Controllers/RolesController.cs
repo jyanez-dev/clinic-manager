@@ -25,20 +25,36 @@ namespace ClinicManager.Controllers
 				.Select(r => new RoleDto
 				{
 					RoleId = r.RoleId,
-					RoleName = r.RoleName
+					Name = r.Name
 				})
 				.ToListAsync();
 
 			return roles;
 		}
 
-		// POST
-		[HttpPost]
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<RoleDto>> GetRole(int id)
+        {
+            var role = await _context.Roles.FindAsync(id);
+
+            if (role == null)
+                return NotFound();
+
+            return new RoleDto
+            {
+                RoleId = role.RoleId,
+                Name = role.Name
+            };
+        }
+
+        // POST
+        [HttpPost]
 		public async Task<ActionResult<RoleDto>> CreateRole(CreateRoleDto dto)
 		{
 			var role = new Role
 			{
-				RoleName = dto.RoleName
+				Name = dto.Name
 			};
 
 			_context.Roles.Add(role);
@@ -47,7 +63,7 @@ namespace ClinicManager.Controllers
 			var result = new RoleDto
 			{
 				RoleId = role.RoleId,
-				RoleName = role.RoleName
+				Name = role.Name
 			};
 
 			return CreatedAtAction(nameof(GetRoles), new { id = role.RoleId }, result);
@@ -64,7 +80,7 @@ namespace ClinicManager.Controllers
 			if (role == null)
 				return NotFound();
 
-			role.RoleName = dto.RoleName;
+			role.Name = dto.Name;
 
 			await _context.SaveChangesAsync();
 			return NoContent();

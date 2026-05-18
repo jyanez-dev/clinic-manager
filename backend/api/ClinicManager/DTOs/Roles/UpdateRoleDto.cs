@@ -8,6 +8,6 @@ namespace ClinicManager.DTOs.Roles
 		public int RoleId { get; set; }
 
 		[Required]
-		public string RoleName { get; set; } = string.Empty;
+		public string Name { get; set; } = string.Empty;
 	}
 }

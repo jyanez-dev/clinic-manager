@@ -17,7 +17,10 @@ namespace ClinicManager.DTOs.Users
 		[Required]
 		public string PasswordHash { get; set; } = string.Empty;
 
-		[EmailAddress]
+        [Required]
+        public int CreateUser { get; set; }
+
+        [EmailAddress]
 		public string? EmailAddress { get; set; }
 		public string? Phone { get; set; }
 

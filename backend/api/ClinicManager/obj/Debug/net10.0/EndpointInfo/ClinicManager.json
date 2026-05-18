@@ -1058,81 +1058,6 @@
           }
         }
       },
-      "post": {
-        "tags": [
-          "UserRoles"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateUserRoleDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateUserRoleDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateUserRoleDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRoleDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRoleDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRoleDto"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "UserRoles"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateUserRoleDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateUserRoleDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateUserRoleDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
       "delete": {
         "tags": [
           "UserRoles"
@@ -1347,6 +1272,48 @@
         }
       }
     },
+    "/api/Users/{id}/roles": {
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserRolesDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserRolesDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserRolesDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/WeatherForecast": {
       "get": {
         "tags": [
@@ -1518,7 +1485,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "description": {
+          "name": {
             "type": "string",
             "nullable": true
           },
@@ -1539,7 +1506,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "description": {
+          "name": {
             "type": "string",
             "nullable": true
           }
@@ -1586,7 +1553,7 @@
       "CreateAppointmentStatusDto": {
         "type": "object",
         "properties": {
-          "description": {
+          "name": {
             "type": "string",
             "nullable": true
           }
@@ -1595,7 +1562,7 @@
       },
       "CreateDoctorDto": {
         "required": [
-          "specialty",
+          "createUser",
           "userId"
         ],
         "type": "object",
@@ -1604,9 +1571,9 @@
             "type": "integer",
             "format": "int32"
           },
-          "specialty": {
-            "minLength": 1,
-            "type": "string"
+          "createUser": {
+            "type": "integer",
+            "format": "int32"
           },
           "active": {
             "type": "boolean"
@@ -1617,7 +1584,7 @@
       "CreateDocumentTypeDto": {
         "type": "object",
         "properties": {
-          "description": {
+          "name": {
             "type": "string",
             "nullable": true
           }
@@ -1654,7 +1621,7 @@
       "CreateRecordTypeDto": {
         "type": "object",
         "properties": {
-          "description": {
+          "name": {
             "type": "string",
             "nullable": true
           }
@@ -1663,11 +1630,11 @@
       },
       "CreateRoleDto": {
         "required": [
-          "roleName"
+          "name"
         ],
         "type": "object",
         "properties": {
-          "roleName": {
+          "name": {
             "minLength": 1,
             "type": "string"
           }
@@ -1676,6 +1643,7 @@
       },
       "CreateUserDto": {
         "required": [
+          "createUser",
           "firstName",
           "lastName",
           "passwordHash",
@@ -1699,6 +1667,10 @@
             "minLength": 1,
             "type": "string"
           },
+          "createUser": {
+            "type": "integer",
+            "format": "int32"
+          },
           "emailAddress": {
             "type": "string",
             "format": "email",
@@ -1707,20 +1679,6 @@
           "phone": {
             "type": "string",
             "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "CreateUserRoleDto": {
-        "type": "object",
-        "properties": {
-          "userId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "roleId": {
-            "type": "integer",
-            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -1739,12 +1697,26 @@
           "user": {
             "$ref": "#/components/schemas/User"
           },
-          "specialty": {
-            "type": "string",
-            "nullable": true
-          },
           "active": {
             "type": "boolean"
+          },
+          "createDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "editDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createUser": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "editUser": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
           },
           "appointments": {
             "type": "array",
@@ -1771,10 +1743,6 @@
             "type": "string",
             "nullable": true
           },
-          "specialty": {
-            "type": "string",
-            "nullable": true
-          },
           "active": {
             "type": "boolean"
           }
@@ -1788,7 +1756,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "description": {
+          "name": {
             "type": "string",
             "nullable": true
           },
@@ -1809,7 +1777,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "description": {
+          "name": {
             "type": "string",
             "nullable": true
           }
@@ -2019,7 +1987,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "description": {
+          "name": {
             "type": "string",
             "nullable": true
           },
@@ -2040,7 +2008,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "description": {
+          "name": {
             "type": "string",
             "nullable": true
           }
@@ -2054,7 +2022,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "roleName": {
+          "name": {
             "type": "string",
             "nullable": true
           },
@@ -2075,7 +2043,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "roleName": {
+          "name": {
             "type": "string",
             "nullable": true
           }
@@ -2131,7 +2099,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "description": {
+          "name": {
             "type": "string",
             "nullable": true
           }
@@ -2141,7 +2109,7 @@
       "UpdateDoctorDto": {
         "required": [
           "doctorId",
-          "specialty",
+          "editUser",
           "userId"
         ],
         "type": "object",
@@ -2154,9 +2122,9 @@
             "type": "integer",
             "format": "int32"
           },
-          "specialty": {
-            "minLength": 1,
-            "type": "string"
+          "editUser": {
+            "type": "integer",
+            "format": "int32"
           },
           "active": {
             "type": "boolean"
@@ -2171,7 +2139,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "description": {
+          "name": {
             "type": "string",
             "nullable": true
           }
@@ -2220,7 +2188,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "description": {
+          "name": {
             "type": "string",
             "nullable": true
           }
@@ -2229,8 +2197,8 @@
       },
       "UpdateRoleDto": {
         "required": [
-          "roleId",
-          "roleName"
+          "name",
+          "roleId"
         ],
         "type": "object",
         "properties": {
@@ -2238,7 +2206,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "roleName": {
+          "name": {
             "minLength": 1,
             "type": "string"
           }
@@ -2247,6 +2215,7 @@
       },
       "UpdateUserDto": {
         "required": [
+          "editUser",
           "firstName",
           "lastName",
           "userId",
@@ -2270,6 +2239,10 @@
             "minLength": 1,
             "type": "string"
           },
+          "editUser": {
+            "type": "integer",
+            "format": "int32"
+          },
           "email": {
             "type": "string",
             "format": "email",
@@ -2285,14 +2258,18 @@
         },
         "additionalProperties": false
       },
-      "UpdateUserRoleDto": {
+      "UpdateUserRolesDto": {
         "type": "object",
         "properties": {
-          "userId": {
-            "type": "integer",
-            "format": "int32"
+          "roleIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "nullable": true
           },
-          "roleId": {
+          "editUser": {
             "type": "integer",
             "format": "int32"
           }
@@ -2340,6 +2317,15 @@
           "editDate": {
             "type": "string",
             "format": "date-time",
+            "nullable": true
+          },
+          "createUser": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "editUser": {
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           },
           "userRoles": {
@@ -2393,6 +2379,14 @@
           },
           "role": {
             "$ref": "#/components/schemas/Role"
+          },
+          "createDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createUser": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -2412,7 +2406,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "roleName": {
+          "name": {
             "type": "string",
             "nullable": true
           }

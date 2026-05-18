@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ClinicManager.Data;
-using ClinicManager.Models;
+﻿using ClinicManager.Data;
 using ClinicManager.DTOs.Doctors;
+using ClinicManager.DTOs.DoctorSpecialties;
+using ClinicManager.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClinicManager.Controllers
 {
@@ -29,7 +30,6 @@ namespace ClinicManager.Controllers
 					DoctorId = d.DoctorId,
 					UserId = d.UserId,
 					UserName = d.User.UserName,
-					Specialty = d.Specialty,
 					Active = d.Active
 				})
 				.ToListAsync();
@@ -45,9 +45,10 @@ namespace ClinicManager.Controllers
 			var doctor = new Doctor
 			{
 				UserId = dto.UserId,
-				Specialty = dto.Specialty,
-				Active = dto.Active
-			};
+				Active = dto.Active,
+                CreateDate = DateTime.Now,
+                CreateUser = dto.CreateUser
+            };
 
 			_context.Doctors.Add(doctor);
 			await _context.SaveChangesAsync();
@@ -56,17 +57,72 @@ namespace ClinicManager.Controllers
 			{
 				DoctorId = doctor.DoctorId,
 				UserId = doctor.UserId,
-				Specialty = doctor.Specialty,
 				Active = doctor.Active,
 				UserName = null // optional
-			};
+             };
 
 			return CreatedAtAction(nameof(GetDoctors), new { id = doctor.DoctorId }, result);
 		}
 
-		// PUT: api/doctors/{id}
-		// Updates an existing doctor
-		[HttpPut("{id}")]
+        /****/
+
+		
+        [HttpPut("{id}/specialties")]
+        public async Task<IActionResult> UpdateDoctorSpecialties(int id, UpdateDoctorSpecialtiesDTO dto)
+        {
+            var doctor = await _context.Doctors.FindAsync(id);
+
+            if (doctor == null)
+                return NotFound();
+
+            // Obtener roles actuales
+            // Get current roles
+            var currentSpecialties = await _context.DoctorSpecialties
+                .Where(ds => ds.DoctorId == id)
+                .ToListAsync();
+
+            var currentSpecialtyIds = currentSpecialties.Select(s => s.SpecialtyId).ToList();
+
+            // Roles a eliminar
+            // Roles to remove
+            var specialtiesToRemove = currentSpecialties
+                .Where(s => !dto.SpecialtyIds.Contains(s.SpecialtyId))
+                .ToList();
+
+            // Roles a agregar
+            // Roles to add
+            var specialtiesToAdd = dto.SpecialtyIds
+                .Where(sid => !currentSpecialtyIds.Contains(sid))
+                .ToList();
+
+            // DELETE
+            _context.DoctorSpecialties.RemoveRange(specialtiesToRemove);
+
+            // INSERT
+            foreach (var specialtyId in specialtiesToAdd)
+            {
+                _context.DoctorSpecialties.Add(new DoctorSpecialty
+                {
+                    DoctorId =  id, 
+					SpecialtyId = specialtyId,
+                    CreateDate = DateTime.Now,
+                    CreateUser = dto.EditUser
+                });
+            }
+
+            // Auditoría del cambio
+            // Change audit
+            doctor.EditDate = DateTime.Now;
+            doctor.EditUser = dto.EditUser;
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+		
+        // PUT: api/doctors/{id}
+        // Updates an existing doctor
+        [HttpPut("{id}")]
 		public async Task<IActionResult> UpdateDoctor(int id, UpdateDoctorDto dto)
 		{
 			if (id != dto.DoctorId)
@@ -78,10 +134,11 @@ namespace ClinicManager.Controllers
 				return NotFound();
 
 			doctor.UserId = dto.UserId;
-			doctor.Specialty = dto.Specialty;
 			doctor.Active = dto.Active;
+            doctor.EditDate = DateTime.Now;
+            doctor.EditUser = dto.EditUser;
 
-			await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
 			return NoContent();
 		}

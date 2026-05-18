@@ -78,7 +78,8 @@ namespace ClinicManager.Controllers
                 Email = dto.EmailAddress,
                 Phone = dto.Phone,
                 IsActive = true,
-                CreateDate = DateTime.Now
+                CreateDate = DateTime.Now,
+				CreateUser = dto.CreateUser
             };
 
             _context.Users.Add(user);
@@ -110,12 +111,65 @@ namespace ClinicManager.Controllers
 			user.Phone = dto.Phone;
 			user.IsActive = true;
 			user.EditDate = DateTime.Now;
+			user.EditUser = dto.EditUser;
 
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
+        [HttpPut("{id}/roles")]
+        public async Task<IActionResult> UpdateUserRoles(int id, UpdateUserRolesDto dto)
+        {
+            var user = await _context.Users.FindAsync(id);
+
+            if (user == null)
+                return NotFound();
+
+            // Obtener roles actuales
+            // Get current roles
+            var currentRoles = await _context.UserRoles
+                .Where(ur => ur.UserId == id)
+                .ToListAsync();
+
+            var currentRoleIds = currentRoles.Select(r => r.RoleId).ToList();
+
+            // Roles a eliminar
+            // Roles to remove
+            var rolesToRemove = currentRoles
+                .Where(r => !dto.RoleIds.Contains(r.RoleId))
+                .ToList();
+
+            // Roles a agregar
+            // Roles to add
+            var rolesToAdd = dto.RoleIds
+                .Where(rid => !currentRoleIds.Contains(rid))
+                .ToList();
+
+            // DELETE
+            _context.UserRoles.RemoveRange(rolesToRemove);
+
+            // INSERT
+            foreach (var roleId in rolesToAdd)
+            {
+                _context.UserRoles.Add(new UserRole
+                {
+                    UserId = id,
+                    RoleId = roleId,
+                    CreateDate = DateTime.Now,
+                    CreateUser = dto.EditUser
+                });
+            }
+
+            // Auditoría del cambio
+            // Change audit
+            user.EditDate = DateTime.Now;
+            user.EditUser = dto.EditUser;
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
 
 
         // DELETE: api/users/5

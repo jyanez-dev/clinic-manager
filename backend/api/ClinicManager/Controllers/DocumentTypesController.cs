@@ -25,7 +25,7 @@ namespace ClinicManager.Controllers
 				.Select(x => new DocumentTypeDto
 				{
 					DocTypeId = x.DocTypeId,
-					Description = x.Description
+					Name = x.Name
 				})
 				.ToListAsync();
 		}
@@ -36,7 +36,7 @@ namespace ClinicManager.Controllers
 		{
 			var entity = new DocumentType
 			{
-				Description = dto.Description
+				Name = dto.Name
 			};
 
 			_context.DocumentTypes.Add(entity);
@@ -54,7 +54,7 @@ namespace ClinicManager.Controllers
 			if (entity == null)
 				return NotFound();
 
-			entity.Description = dto.Description;
+			entity.Name = dto.Name;
 
 			await _context.SaveChangesAsync();
 

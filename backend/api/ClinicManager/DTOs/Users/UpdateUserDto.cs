@@ -16,7 +16,10 @@ namespace ClinicManager.DTOs.Users
 		[Required]
 		public string UserName { get; set; } = string.Empty;
 
-		[EmailAddress]
+        [Required]
+        public int EditUser { get; set; }
+
+        [EmailAddress]
 		public string? Email { get; set; }
 
 		public string? Phone { get; set; }

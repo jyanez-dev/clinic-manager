@@ -25,7 +25,7 @@ namespace ClinicManager.Controllers
 				.Select(x => new RecordTypeDto
 				{
 					RecordTypeId = x.RecordTypeId,
-					Description = x.Description
+					Name = x.Name
 				})
 				.ToListAsync();
 		}
@@ -36,8 +36,8 @@ namespace ClinicManager.Controllers
 		{
 			var entity = new RecordType
 			{
-				Description = dto.Description
-			};
+				Name = dto.Name
+            };
 
 			_context.RecordTypes.Add(entity);
 			await _context.SaveChangesAsync();
@@ -54,7 +54,7 @@ namespace ClinicManager.Controllers
 			if (entity == null)
 				return NotFound();
 
-			entity.Description = dto.Description;
+			entity.Name = dto.Name;
 
 			await _context.SaveChangesAsync();
 
