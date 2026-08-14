@@ -1,5 +1,4 @@
 ﻿using ClinicManager.Data;
-using ClinicManager.DTOs.Doctors;
 using ClinicManager.DTOs.Users;
 using ClinicManager.Models;
 using Microsoft.AspNetCore.Identity;
@@ -39,8 +38,6 @@ namespace ClinicManager.Controllers
 				.Select(u => new UserDto
 				{
 					UserId = u.UserId,
-					FirstName = u.FirstName,
-					LastName = u.LastName,
 					UserName = u.UserName
 				})
 				.ToListAsync();
@@ -71,8 +68,6 @@ namespace ClinicManager.Controllers
         {
             var user = new User
             {
-                FirstName = dto.FirstName,
-                LastName = dto.LastName,
                 UserName = dto.UserName,
                 PasswordHash = dto.PasswordHash,
                 Email = dto.EmailAddress,
@@ -86,9 +81,13 @@ namespace ClinicManager.Controllers
 
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetUser),
-                new { id = user.UserId },
-                user);
+            var result = new UserDto
+            {
+                UserName = user.UserName
+            };
+
+             return CreatedAtAction(nameof(GetUsers),
+                new { id = user.UserId },result);
         }
 
 
@@ -102,14 +101,11 @@ namespace ClinicManager.Controllers
 
             if (user == null)
                 return NotFound();
-
-
-			user.FirstName = dto.FirstName;
-			user.LastName = dto.LastName;
+			
 			user.UserName = dto.UserName;
 			user.Email = dto.Email;
 			user.Phone = dto.Phone;
-			user.IsActive = true;
+			user.IsActive = dto.IsActive;
 			user.EditDate = DateTime.Now;
 			user.EditUser = dto.EditUser;
 

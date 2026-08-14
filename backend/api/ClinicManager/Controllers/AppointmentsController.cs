@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ClinicManager.Data;
-using ClinicManager.Models;
+﻿using ClinicManager.Data;
 using ClinicManager.DTOs.Appointments;
+using ClinicManager.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClinicManager.Controllers
 {
@@ -31,16 +32,17 @@ namespace ClinicManager.Controllers
 					PatientId = a.PatientId,
 					PatientName = a.Patient.FirstName1 + " " + a.Patient.LastName1,
 
-					DoctorId = a.DoctorId,
-					DoctorName = a.Doctor.User.UserName,
-
+					EmployeeId = a.EmployeeId,
+					EmployeeName = a.Employee.FirstName1 + " " + a.Employee.LastName1,
+				
 					AppointmentDateTime = a.AppointmentDateTime,
 
 					AppointmentStatusId = a.AppointmentStatusId,
 					StatusName = a.AppointmentStatus.Name,
 
 					Description = a.Description,
-					Amount = a.Amount
+					Amount = a.Amount,
+					Observation = a.Observation
 				})
 				.ToListAsync();
 
@@ -55,19 +57,38 @@ namespace ClinicManager.Controllers
 			var appointment = new Appointment
 			{
 				PatientId = dto.PatientId,
-				DoctorId = dto.DoctorId,
+				EmployeeId = dto.EmployeeId,
 				AppointmentDateTime = dto.AppointmentDateTime,
 				AppointmentStatusId = dto.AppointmentStatusId,
+				CreateUser =dto.CreateUser,
+				CreateDate = DateTime.Now,
 				Description = dto.Description,
-				Amount = dto.Amount
+				Amount = dto.Amount,
+				Observation = dto.Observation
 			};
 
 			_context.Appointments.Add(appointment);
 			await _context.SaveChangesAsync();
 
+			
+			var result = new AppointmentDto
+			{
+			    PatientId = appointment.PatientId,
+				EmployeeId = appointment.EmployeeId,
+				AppointmentDateTime = appointment.AppointmentDateTime,
+				AppointmentStatusId = appointment.AppointmentStatusId,
+				//CreateUser = appointment.CreateUser,
+				//CreateDate = DateTime.Now,
+				Description = appointment.Description,
+				Amount = appointment.Amount,
+				Observation = appointment.Observation
+			};
+
+			//return CreatedAtAction(nameof(GetEmployees), new { id = employee.EmployeeId }, result);
+			
 			return CreatedAtAction(nameof(GetAppointments),
 				new { id = appointment.AppointmentId },
-				null);
+				result);
 		}
 
 		// PUT: api/appointments/{id}
@@ -84,11 +105,14 @@ namespace ClinicManager.Controllers
 				return NotFound();
 
 			appointment.PatientId = dto.PatientId;
-			appointment.DoctorId = dto.DoctorId;
+			appointment.EmployeeId = dto.EmployeeId;
 			appointment.AppointmentDateTime = dto.AppointmentDateTime;
 			appointment.AppointmentStatusId = dto.AppointmentStatusId;
 			appointment.Description = dto.Description;
 			appointment.Amount = dto.Amount;
+			appointment.Observation = dto.Observation;
+			appointment.EditUser = dto.EditUser;
+			appointment.EditDate = DateTime.Now;
 
 			await _context.SaveChangesAsync();
 
@@ -125,8 +149,10 @@ namespace ClinicManager.Controllers
 					PatientId = a.PatientId,
 					PatientName = a.Patient.FirstName1 + " " + a.Patient.LastName1,
 
-					DoctorId = a.DoctorId,
-					DoctorName = a.Doctor.User.UserName,
+					EmployeeId = a.EmployeeId,
+					EmployeeName = a.Employee.FirstName1 + " " + a.Employee.LastName1,
+
+					//DoctorName = a.Doctor.User.UserName,
 
 					AppointmentDateTime = a.AppointmentDateTime,
 
@@ -134,7 +160,8 @@ namespace ClinicManager.Controllers
 					StatusName = a.AppointmentStatus.Name,
 
 					Description = a.Description,
-					Amount = a.Amount
+					Amount = a.Amount,
+					Observation = a.Observation
 				})
 				.FirstOrDefaultAsync();
 

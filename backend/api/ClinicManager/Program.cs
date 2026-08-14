@@ -13,8 +13,17 @@ builder.Services.AddSwaggerGen();
 // --------------------------
 // Configure DbContext
 // --------------------------
+
+
 builder.Services.AddDbContext<ClinicManagerDbContext>(options =>
-	options.UseSqlServer(builder.Configuration.GetConnectionString("ClinicManagerDB")));
+options.UseSqlServer(builder.Configuration.GetConnectionString("ClinicManagerDB")));
+
+//  Use this to find errors */
+/*builder.Services.AddDbContext<ClinicManagerDbContext>(options =>
+	options.UseSqlServer(
+		builder.Configuration.GetConnectionString("ClinicManagerDB"))
+		.EnableSensitiveDataLogging()
+		.LogTo(Console.WriteLine, LogLevel.Information)); */
 
 var app = builder.Build();
 

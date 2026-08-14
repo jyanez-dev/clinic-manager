@@ -1,4 +1,5 @@
 ﻿using ClinicManager.Data;
+using ClinicManager.DTOs.AppointmentStatus;
 using ClinicManager.DTOs.DocumentTypes;
 using ClinicManager.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,7 @@ namespace ClinicManager.Controllers
 
 		// GET: api/documentType
 		[HttpGet]
-		public async Task<ActionResult<IEnumerable<DocumentTypeDto>>> GetAll()
+		public async Task<ActionResult<IEnumerable<DocumentTypeDto>>> GetDocumentTypes()
 		{
 			return await _context.DocumentTypes
 				.Select(x => new DocumentTypeDto
@@ -34,27 +35,35 @@ namespace ClinicManager.Controllers
 		[HttpPost]
 		public async Task<ActionResult> Create(CreateDocumentTypeDto dto)
 		{
-			var entity = new DocumentType
+			var documentType = new DocumentType
 			{
 				Name = dto.Name
 			};
 
-			_context.DocumentTypes.Add(entity);
+			_context.DocumentTypes.Add(documentType);
 			await _context.SaveChangesAsync();
 
-			return Ok();
+
+			var result = new DocumentTypeDto
+			{
+				Name = documentType.Name
+			};
+
+			return CreatedAtAction(nameof(GetDocumentTypes),
+				new { id = documentType.DocTypeId }, result);
+			
 		}
 
 		// PUT
 		[HttpPut("{id}")]
 		public async Task<IActionResult> Update(int id, UpdateDocumentTypeDto dto)
 		{
-			var entity = await _context.DocumentTypes.FindAsync(id);
+			var documentType = await _context.DocumentTypes.FindAsync(id);
 
-			if (entity == null)
+			if (documentType == null)
 				return NotFound();
 
-			entity.Name = dto.Name;
+			documentType.Name = dto.Name;
 
 			await _context.SaveChangesAsync();
 
@@ -65,12 +74,12 @@ namespace ClinicManager.Controllers
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> Delete(int id)
 		{
-			var entity = await _context.DocumentTypes.FindAsync(id);
+			var documentType = await _context.DocumentTypes.FindAsync(id);
 
-			if (entity == null)
+			if (documentType == null)
 				return NotFound();
 
-			_context.DocumentTypes.Remove(entity);
+			_context.DocumentTypes.Remove(documentType);
 			await _context.SaveChangesAsync();
 
 			return NoContent();

@@ -5,6 +5,6 @@
 		public int RecordTypeId { get; set; }
 		public string Name { get; set; } = string.Empty;
 
-		public ICollection<MedicalRecord>? MedicalRecords { get; set; }
+		//public ICollection<MedicalRecord>? MedicalRecords { get; set; }
 	}
 }

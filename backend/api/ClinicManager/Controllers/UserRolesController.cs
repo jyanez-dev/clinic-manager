@@ -1,5 +1,4 @@
 ﻿using ClinicManager.Data;
-using ClinicManager.DTOs.Doctors;
 using ClinicManager.DTOs.UserRoles;
 using ClinicManager.Models;
 using Microsoft.AspNetCore.Mvc;

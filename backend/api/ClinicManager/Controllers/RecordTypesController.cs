@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using System.Xml.Linq;
 using ClinicManager.Data;
-using ClinicManager.Models;
 using ClinicManager.DTOs.RecordTypes;
+using ClinicManager.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClinicManager.Controllers
 {
@@ -19,7 +20,7 @@ namespace ClinicManager.Controllers
 
 		// GET: api/RecordTypes
 		[HttpGet]
-		public async Task<ActionResult<IEnumerable<RecordTypeDto>>> GetAll()
+		public async Task<ActionResult<IEnumerable<RecordTypeDto>>> GetRecordTypes()
 		{
 			return await _context.RecordTypes
 				.Select(x => new RecordTypeDto
@@ -34,27 +35,33 @@ namespace ClinicManager.Controllers
 		[HttpPost]
 		public async Task<ActionResult> Create(CreateRecordTypeDto dto)
 		{
-			var entity = new RecordType
+			var recordType = new RecordType
 			{
 				Name = dto.Name
             };
 
-			_context.RecordTypes.Add(entity);
+			_context.RecordTypes.Add(recordType);
 			await _context.SaveChangesAsync();
 
-			return Ok();
+			var result = new RecordTypeDto
+			{
+				Name = recordType.Name
+			};
+
+			return CreatedAtAction(nameof(GetRecordTypes), new {id = recordType.RecordTypeId },  result);
+			
 		}
 
 		// PUT
 		[HttpPut("{id}")]
 		public async Task<IActionResult> Update(int id, UpdateRecordTypeDto dto)
 		{
-			var entity = await _context.RecordTypes.FindAsync(id);
+			var recordType = await _context.RecordTypes.FindAsync(id);
 
-			if (entity == null)
+			if (recordType == null)
 				return NotFound();
 
-			entity.Name = dto.Name;
+			recordType.Name = dto.Name;
 
 			await _context.SaveChangesAsync();
 
@@ -65,12 +72,12 @@ namespace ClinicManager.Controllers
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> Delete(int id)
 		{
-			var entity = await _context.RecordTypes.FindAsync(id);
+			var recordType = await _context.RecordTypes.FindAsync(id);
 
-			if (entity == null)
+			if (recordType == null)
 				return NotFound();
 
-			_context.RecordTypes.Remove(entity);
+			_context.RecordTypes.Remove(recordType);
 			await _context.SaveChangesAsync();
 
 			return NoContent();

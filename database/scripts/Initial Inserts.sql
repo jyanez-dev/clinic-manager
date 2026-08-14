@@ -4,7 +4,9 @@ GO
 INSERT INTO Roles(Name)
 VALUES
     ('Admin'), 
-    ('Doctor')
+    ('DoctorUser'),
+    ('Scheduler')
+
 
 INSERT INTO DocumentTypes (Name)
 VALUES
@@ -52,8 +54,35 @@ INSERT INTO [dbo].[Specialties]
 GO
 
 
+INSERT INTO [dbo].[Positions]
+           (Name)
+     VALUES
+           ('Doctor'),
+           ('Enfermera'),
+           ('Recepcionista')
+GO
 
 
 
 
-    
+   /*
+   
+   Positions
+
+Doctor
+Nurse
+Receptionist
+Administrator
+Accountant
+Intern
+
+Roles
+
+Admin
+User
+Scheduler
+MedicalRecords
+Reports
+ReadOnly
+
+   */

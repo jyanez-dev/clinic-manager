@@ -20,9 +20,9 @@ namespace ClinicManager.Models
 		public string? Mobile1 { get; set; }
 		public string? Mobile2 { get; set; }
 		public string? Email { get; set; }
-		public string? Obs { get; set; }
+		public string? Observation { get; set; }
 		public bool Status { get; set; } = true;
-		public int? CreateUser { get; set; }
+		public int CreateUser { get; set; }
 		[ForeignKey("CreateUser")]
 		public User? CreateUserNav { get; set; }
 		public DateTime CreateDate { get; set; }
@@ -32,6 +32,6 @@ namespace ClinicManager.Models
 		public DateTime? EditDate { get; set; }
 
 		public ICollection<Appointment>? Appointments { get; set; }
-		public ICollection<MedicalRecord>? MedicalRecords { get; set; }
+		//		public ICollection<MedicalRecord>? MedicalRecords { get; set; }
 	}
 }

@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ClinicManager.Data;
-using ClinicManager.Models;
+﻿using ClinicManager.Data;
+using ClinicManager.DTOs.Appointments;
 using ClinicManager.DTOs.AppointmentStatus;
+using ClinicManager.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClinicManager.Controllers
 {
@@ -19,7 +20,7 @@ namespace ClinicManager.Controllers
 
 		// GET: api/appointmentstatus
 		[HttpGet]
-		public async Task<ActionResult<IEnumerable<AppointmentStatusDto>>> GetAll()
+		public async Task<ActionResult<IEnumerable<AppointmentStatusDto>>> GetAppointmentStatus()
 		{
 			return await _context.AppointmentStatuses
 				.Select(x => new AppointmentStatusDto
@@ -34,27 +35,34 @@ namespace ClinicManager.Controllers
 		[HttpPost]
 		public async Task<ActionResult> Create(CreateAppointmentStatusDto dto)
 		{
-			var entity = new AppointmentStatus
+			var appointmentStatus = new AppointmentStatus
 			{
 				Name = dto.Name
 			};
 
-			_context.AppointmentStatuses.Add(entity);
+			_context.AppointmentStatuses.Add(appointmentStatus);
 			await _context.SaveChangesAsync();
 
-			return Ok();
+			var result = new AppointmentStatusDto
+			{
+				Name = appointmentStatus.Name
+			};
+			
+			return CreatedAtAction(nameof(GetAppointmentStatus),
+				new { id = appointmentStatus.AppointmentStatusId },	result);
+		
 		}
 
 		// PUT
 		[HttpPut("{id}")]
 		public async Task<IActionResult> Update(int id, UpdateAppointmentStatusDto dto)
 		{
-			var entity = await _context.AppointmentStatuses.FindAsync(id);
+			var appointmentStatus = await _context.AppointmentStatuses.FindAsync(id);
 
-			if (entity == null)
+			if (appointmentStatus == null)
 				return NotFound();
 
-			entity.Name = dto.Name;
+			appointmentStatus.Name = dto.Name;
 
 			await _context.SaveChangesAsync();
 
@@ -65,12 +73,12 @@ namespace ClinicManager.Controllers
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> Delete(int id)
 		{
-			var entity = await _context.AppointmentStatuses.FindAsync(id);
+			var appointmentStatus = await _context.AppointmentStatuses.FindAsync(id);
 
-			if (entity == null)
+			if (appointmentStatus == null)
 				return NotFound();
 
-			_context.AppointmentStatuses.Remove(entity);
+			_context.AppointmentStatuses.Remove(appointmentStatus);
 			await _context.SaveChangesAsync();
 
 			return NoContent();

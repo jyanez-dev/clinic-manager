@@ -11,7 +11,7 @@ namespace ClinicManager.DTOs.Appointments
 		public int PatientId { get; set; }
 
 		[Required]
-		public int DoctorId { get; set; }
+		public int EmployeeId { get; set; }
 
 		[Required]
 		public DateTime? AppointmentDateTime { get; set; }
@@ -19,6 +19,10 @@ namespace ClinicManager.DTOs.Appointments
 		[Required]
 		public int AppointmentStatusId { get; set; }
 
+		[Required]
+		public int EditUser { get; set; }
+
+		public string? Observation { get; set; }
 		public string? Description { get; set; }
 
 		public decimal? Amount { get; set; }

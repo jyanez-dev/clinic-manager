@@ -1,4 +1,6 @@
-﻿namespace ClinicManager.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ClinicManager.Models
 {
 	public class Appointment
 	{
@@ -6,8 +8,8 @@
 		public int PatientId { get; set; }
 		public Patient? Patient { get; set; }
 
-		public int DoctorId { get; set; }
-		public Doctor? Doctor { get; set; }
+		public int EmployeeId { get; set; }
+		public Employee? Employee { get; set; }
 
 		public DateTime? AppointmentDateTime { get; set; }
 		public int AppointmentStatusId { get; set; } = 1;
@@ -18,9 +20,11 @@
 		public decimal? Amount { get; set; }
 
 		public int? CreateUser { get; set; }
+		[ForeignKey("CreateUser")]
 		public User? CreateUserNav { get; set; }
 		public DateTime CreateDate { get; set; }
 		public int? EditUser { get; set; }
+		[ForeignKey("EditUser")]
 		public User? EditUserNav { get; set; }
 		public DateTime? EditDate { get; set; }
 	}

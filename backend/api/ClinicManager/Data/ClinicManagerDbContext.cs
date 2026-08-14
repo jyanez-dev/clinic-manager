@@ -10,11 +10,10 @@ namespace ClinicManager.Data
 		{
 		}
 
-		// Tablas
+		// Tables
 		public DbSet<User> Users { get; set; }
 		public DbSet<Role> Roles { get; set; }
 		public DbSet<UserRole> UserRoles { get; set; }
-		public DbSet<Doctor> Doctors { get; set; }
 		public DbSet<DocumentType> DocumentTypes { get; set; }
 		public DbSet<Patient> Patients { get; set; }
 		public DbSet<AppointmentStatus> AppointmentStatuses { get; set; }
@@ -22,12 +21,13 @@ namespace ClinicManager.Data
 		public DbSet<RecordType> RecordTypes { get; set; }
 		public DbSet<MedicalRecord> MedicalRecords { get; set; }
 		public DbSet<Specialty> Specialties { get; set; }
-		public DbSet<DoctorSpecialty> DoctorSpecialties { get; set; }
+		public DbSet<Employee> Employees { get; set; }
+		public DbSet<Position> Positions { get; set; }
+		public DbSet<EmployeePosition> EmployeePositions { get; set; }
+		public DbSet<EmployeeSpecialty> EmployeeSpecialties { get; set; }
 
-
-
-        // Here you can configure relationships and composite keys
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+		// Here you can configure relationships and composite keys
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
 
@@ -35,12 +35,18 @@ namespace ClinicManager.Data
 			modelBuilder.Entity<UserRole>()
 				.HasKey(ur => new { ur.UserId, ur.RoleId });
 
-			// Relación User ↔ Doctor (1:1)
-			modelBuilder.Entity<User>()
-				.HasOne(u => u.Doctor)
-				.WithOne(d => d.User)
-				.HasForeignKey<Doctor>(d => d.UserId);
+		
+			modelBuilder.Entity<EmployeeSpecialty>()
+				 .HasKey(es => new { es.EmployeeId, es.SpecialtyId });
 
+			modelBuilder.Entity<User>()
+				.HasOne(u => u.Employee)
+				.WithOne(e => e.User)
+				.HasForeignKey<Employee>(e => e.UserId);
+
+			modelBuilder.Entity<EmployeePosition>()
+				.HasKey(ep => new { ep.EmployeeId, ep.PositionId });
+			
 			// Additional configurations can be added here based on your relationships
 		}
 	}
