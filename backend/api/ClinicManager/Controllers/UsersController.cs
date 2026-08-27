@@ -73,8 +73,7 @@ namespace ClinicManager.Controllers
                 Email = dto.EmailAddress,
                 Phone = dto.Phone,
                 IsActive = true,
-                CreateDate = DateTime.Now,
-				CreateUser = dto.CreateUser
+                CreateUser = dto.CreateUser
             };
 
             _context.Users.Add(user);
@@ -106,7 +105,6 @@ namespace ClinicManager.Controllers
 			user.Email = dto.Email;
 			user.Phone = dto.Phone;
 			user.IsActive = dto.IsActive;
-			user.EditDate = DateTime.Now;
 			user.EditUser = dto.EditUser;
 
             await _context.SaveChangesAsync();
@@ -159,7 +157,7 @@ namespace ClinicManager.Controllers
 
             // Auditoría del cambio
             // Change audit
-            user.EditDate = DateTime.Now;
+          //  user.EditDate = DateTime.Now;
             user.EditUser = dto.EditUser;
 
             await _context.SaveChangesAsync();

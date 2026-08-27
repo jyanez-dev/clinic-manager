@@ -32,7 +32,7 @@ namespace ClinicManager.Controllers
 					EmployeeName = $"{es.Employee!.FirstName1} {es.Employee.LastName1}" ,
 					SpecialtyId = es.SpecialtyId,
 					SpecialtyName = es.Specialty!.Name,
-					//CreateUser = es.CreateUser,
+					CreateUser = es.CreateUser,
 					UserName = es.Employee!.User!.UserName,
 
 				})
@@ -62,8 +62,7 @@ namespace ClinicManager.Controllers
 			{
 				EmployeeId = dto.EmployeeId,
 				SpecialtyId = dto.SpecialtyId,
-				CreateUser = dto.CreateUser,
-				CreateDate = DateTime.Now
+				CreateUser = dto.CreateUser
 			};
 
 

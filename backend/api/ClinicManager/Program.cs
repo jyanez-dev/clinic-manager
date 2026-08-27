@@ -16,7 +16,16 @@ builder.Services.AddSwaggerGen();
 
 
 builder.Services.AddDbContext<ClinicManagerDbContext>(options =>
+	options.UseNpgsql(
+		builder.Configuration.GetConnectionString("DefaultConnection"))
+		.UseSnakeCaseNamingConvention());
+
+
+
+/* Use this en SQL Server*/
+/*builder.Services.AddDbContext<ClinicManagerDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("ClinicManagerDB")));
+*/
 
 //  Use this to find errors */
 /*builder.Services.AddDbContext<ClinicManagerDbContext>(options =>

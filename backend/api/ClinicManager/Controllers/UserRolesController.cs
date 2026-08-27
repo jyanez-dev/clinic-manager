@@ -46,7 +46,6 @@ namespace ClinicManager.Controllers
 			{
 				UserId = dto.UserId,
 				RoleId = dto.RoleId,
-                CreateDate = DateTime.Now,
                 CreateUser = dto.CreateUser
             };
 

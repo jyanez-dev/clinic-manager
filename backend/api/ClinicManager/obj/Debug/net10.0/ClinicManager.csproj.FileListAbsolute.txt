@@ -324,3 +324,6 @@ C:\Projects\ClinicManager\backend\api\ClinicManager\obj\Debug\net10.0\refint\Cli
 C:\Projects\ClinicManager\backend\api\ClinicManager\obj\Debug\net10.0\ClinicManager.pdb
 C:\Projects\ClinicManager\backend\api\ClinicManager\obj\Debug\net10.0\ClinicManager.genruntimeconfig.cache
 C:\Projects\ClinicManager\backend\api\ClinicManager\obj\Debug\net10.0\ref\ClinicManager.dll
+D:\Projects\ClinicManager\backend\api\ClinicManager\bin\Debug\net10.0\EFCore.NamingConventions.dll
+D:\Projects\ClinicManager\backend\api\ClinicManager\bin\Debug\net10.0\Npgsql.dll
+D:\Projects\ClinicManager\backend\api\ClinicManager\bin\Debug\net10.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll

@@ -59,11 +59,7 @@ namespace ClinicManager.Controllers
 				EmployeeId = dto.EmployeeId,
 				PositionId = dto.PositionId,
 				CreateUser = dto.CreateUser,
-				CreateDate = DateTime.Now
 			};
-
-
-
 
 			_context.EmployeePositions.Add(employeePosition);
 			await _context.SaveChangesAsync();

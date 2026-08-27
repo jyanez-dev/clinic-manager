@@ -17,7 +17,7 @@ namespace ClinicManager.Models
 		public string? LastName2 { get; set; }
 		public int? DocTypeId { get; set; }
 		public DocumentType? DocType { get; set; }
-		public DateTime? BirthDate { get; set; }
+		public DateOnly? BirthDate { get; set; }
 		public short Sex { get; set; }  // 0=unknown, 1=male, 2=female
 		public string? Tel1 { get; set; }
 		public string? Tel2 { get; set; }

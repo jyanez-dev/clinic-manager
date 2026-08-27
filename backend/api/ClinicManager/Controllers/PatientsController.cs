@@ -27,11 +27,21 @@ namespace ClinicManager.Controllers
                     PatientId = p.PatientId,
                     FirstName1 = p.FirstName1,
                     LastName1 = p.LastName1,
+                    FirstName2 = p.FirstName2,
+                    DocTypeId = p.DocTypeId,
                     DocNum = p.DocNum,
                     Email = p.Email,
                     Observation = p.Observation,
                     CreateUser = p.CreateUser,
-                })
+                    BirthDate = p.BirthDate,
+                    Tel1 = p.Tel1,		
+                    Tel2 = p.Tel2,
+                    Mobile1 = p.Mobile1,
+                    Mobile2 = p.Mobile2,
+                    Address = p.Address,
+                    Sex = p.Sex
+
+	})
                 .ToListAsync();
             return patients;
         }
@@ -44,14 +54,23 @@ namespace ClinicManager.Controllers
             {
                 FirstName1 = dto.FirstName1,
                 LastName1 = dto.LastName1,
+				FirstName2 = dto.FirstName2,
+				LastName2 = dto.LastName2,
+				DocTypeId = dto.DocTypeId,
                 DocNum = dto.DocNum,
                 Email = dto.Email,
                 Status = true,
-                CreateDate = DateTime.Now,
                 Observation = dto.Observation,
                 Sex = dto.Sex,
                 CreateUser = dto.CreateUser,
-             };
+				BirthDate = dto.BirthDate,
+				Tel1 = dto.Tel1,
+				Tel2 = dto.Tel2,
+				Mobile1 = dto.Mobile1,
+				Mobile2 = dto.Mobile2,
+                Address = dto.Address,
+
+			};
 
             _context.Patients.Add(patient);
             await _context.SaveChangesAsync();
@@ -61,12 +80,21 @@ namespace ClinicManager.Controllers
                 PatientId = patient.PatientId,
                 FirstName1 = patient.FirstName1,
                 LastName1 = patient.LastName1,
+				FirstName2 = patient.FirstName2,
+				LastName2 = patient.LastName2,
+				DocTypeId = patient.DocTypeId,
                 DocNum = patient.DocNum,
                 Email = patient.Email,
                 Observation = patient.Observation,
                 Sex= patient.Sex,
                 CreateUser = patient.CreateUser,
-            };
+				BirthDate = patient.BirthDate,
+				Tel1 = patient.Tel1,
+				Tel2 = patient.Tel2,
+				Mobile1 = patient.Mobile1,
+				Mobile2 = patient.Mobile2,
+                Address = patient.Address,
+			};
 
             return CreatedAtAction(nameof(GetPatiens), new { id = patient.PatientId }, result);
 
@@ -86,13 +114,21 @@ namespace ClinicManager.Controllers
 
 			patient.FirstName1 = dto.FirstName1;
 			patient.LastName1 = dto.LastName1;
-			patient.DocNum = dto.DocNum;
+			patient.FirstName2 = dto.FirstName2;
+			patient.LastName2 = dto.LastName2;
+			patient.DocTypeId = dto.DocTypeId;
+            patient.DocNum = dto.DocNum;
 			patient.Email = dto.Email;
 			patient.Status = dto.Status;
-			patient.EditDate = DateTime.Now;
 			patient.EditUser = dto.EditUser;
             patient.Observation = dto.Observation;
             patient.Sex = dto.Sex;
+            patient.BirthDate = dto.BirthDate;
+            patient.Tel1 = dto.Tel1;
+            patient.Tel2 = dto.Tel2;
+            patient.Mobile1 = dto.Mobile1;
+            patient.Mobile2 = dto.Mobile2;
+            patient.Address = dto.Address;
 
 			await _context.SaveChangesAsync();
 
@@ -113,8 +149,6 @@ namespace ClinicManager.Controllers
 
 			return NoContent();
 		}
-
-
 	}
 }
 

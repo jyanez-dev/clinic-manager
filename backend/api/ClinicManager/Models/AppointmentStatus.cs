@@ -2,7 +2,7 @@
 
 namespace ClinicManager.Models
 {
-	[Table("AppointmentStatus")]
+	//[Table("AppointmentStatus")]
 	public class AppointmentStatus
 	{
 		public int AppointmentStatusId { get; set; }

@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using ClinicManager.Data;
@@ -34,10 +35,14 @@ namespace ClinicManager.Controllers
 					UserId = e.UserId,
 					FirstName1 = e.FirstName1,
 					LastName1 = e.LastName1,
+					BirthDate = e.BirthDate,
+					DocTypeId = e.DocTypeId,
 					DocNum = e.DocNum,
 					Email = e.Email,
 					Observation = e.Observation,
-					Sex = e.Sex,	
+					Sex = e.Sex,
+					Tel1 = e.Tel1,
+					Mobile1 = e.Mobile1
 
 				}).ToListAsync();
 			return employees;
@@ -53,13 +58,21 @@ namespace ClinicManager.Controllers
 				UserId = dto.UserId,
 				FirstName1 = dto.FirstName1,
 				LastName1 = dto.LastName1,
+				DocTypeId = dto.DocTypeId,
 				DocNum = dto.DocNum,
 				Email = dto.Email,
 				Status = true,
 				CreateUser = dto.CreateUser,
-				CreateDate = DateTime.Now,
 				Observation = dto.Observation,
 				Sex = dto.Sex,
+				Address = dto.Address,
+		        FirstName2 = dto.FirstName2,
+				LastName2 = dto.LastName2,
+				BirthDate = dto.BirthDate,
+				Tel1 = dto.Tel1,
+				Tel2 = dto.Tel2,
+				Mobile1 = dto.Mobile1,
+				Mobile2 = dto.Mobile2,
 			};
 			_context.Employees.Add(employee);
 			await _context.SaveChangesAsync();
@@ -69,10 +82,21 @@ namespace ClinicManager.Controllers
 				UserId = employee.UserId,
 				FirstName1 = employee.FirstName1,
 				LastName1 = employee.LastName1,
+				DocTypeId = employee.DocTypeId,
+				DocNum = employee.DocNum,
 				Email = employee.Email,
 				CreateUser = employee.CreateUser,
 				Observation = employee.Observation,
 				Sex= employee.Sex,
+				Address = employee.Address,
+				FirstName2 = employee.FirstName2,
+				LastName2 = employee.LastName2,
+				BirthDate = employee.BirthDate,
+				Tel1 = employee.Tel1,
+				Tel2 = employee.Tel2,
+				Mobile1 = employee.Mobile1,
+				Mobile2 = employee.Mobile2,
+				Status = employee.Status,
 			};
 
 			return CreatedAtAction(nameof(GetEmployees), new { id = employee.EmployeeId }, result);
@@ -98,12 +122,20 @@ namespace ClinicManager.Controllers
 			employee.DocNum = dto.DocNum;
 			employee.Status = dto.Status;
 			employee.Email = dto.Email;
-			employee.EditDate = DateTime.Now;
 			employee.EditUser = dto.EditUser;
 			employee.Observation = dto.Observation;
 			employee.Sex = dto.Sex;
+			employee.Address = dto.Address;
+			employee.FirstName2 = dto.FirstName2;
+			employee.LastName2 = dto.LastName2;
+			employee.BirthDate = dto.BirthDate;
+			employee.Tel1 = dto.Tel1;
+			employee.Tel2 = dto.Tel2;
+			employee.Mobile1 = dto.Mobile1;
+			employee.Mobile2 = dto.Mobile2;
+			employee.Status = dto.Status;
 
-			await _context.SaveChangesAsync();
+		await _context.SaveChangesAsync();
 
 			return NoContent();
 		}
@@ -155,7 +187,7 @@ namespace ClinicManager.Controllers
 
 			// Auditoría del cambio
 			// Change audit
-			employee.EditDate = DateTime.Now;
+			
 			employee.EditUser = dto.EditUser;
 
 			await _context.SaveChangesAsync();
@@ -210,8 +242,8 @@ namespace ClinicManager.Controllers
 
 				// Auditoría del cambio
 				// Change audit
-				employee.EditDate = DateTime.Now;
-			    employee.EditUser = dto.EditUser;
+				
+				employee.EditUser = dto.EditUser;
 
 				await _context.SaveChangesAsync();
 

@@ -22,7 +22,7 @@ namespace ClinicManager.Controllers
 
 		[HttpGet]
 
-		public async Task<ActionResult<IEnumerable<MedicalRecordDto>>> GetMedicalRecords()
+		public async Task<ActionResult<IEnumerable<MedicalRecordDto>>> GetMedicalRecords() 
 		{
 
 			var medicalRecord = await _context.MedicalRecords 
@@ -37,7 +37,8 @@ namespace ClinicManager.Controllers
 				    Prescription = mr.Prescription,
 				    Observation = mr.Observation,
 				    Recommendations = mr.Recommendations,
-				    CreateUser = mr.CreateUser
+				    CreateUser = mr.CreateUser,
+					CreateDate = mr.CreateDate
 			   })
 			   .ToListAsync();
 
@@ -60,7 +61,6 @@ namespace ClinicManager.Controllers
 				Observation = dto.Observation,
 				Recommendations = dto.Recommendations,
 				CreateUser = dto.CreateUser,
-				CreateDate = DateTime.Now
 			};
 
 			_context.MedicalRecords.Add(medicalRecord);
@@ -111,7 +111,7 @@ namespace ClinicManager.Controllers
 			medicalRecord.Observation = dto.Observation;
 			medicalRecord.Recommendations = dto.Recommendations;
 			medicalRecord.EditUser = dto.EditUser;
-			medicalRecord.EditDate = DateTime.Now;	    
+			    
 			await _context.SaveChangesAsync();
 
 			return NoContent();

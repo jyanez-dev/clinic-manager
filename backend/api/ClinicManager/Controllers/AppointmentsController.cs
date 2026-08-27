@@ -61,7 +61,7 @@ namespace ClinicManager.Controllers
 				AppointmentDateTime = dto.AppointmentDateTime,
 				AppointmentStatusId = dto.AppointmentStatusId,
 				CreateUser =dto.CreateUser,
-				CreateDate = DateTime.Now,
+				//CreateDate = DateTime.Now,
 				Description = dto.Description,
 				Amount = dto.Amount,
 				Observation = dto.Observation
@@ -112,7 +112,7 @@ namespace ClinicManager.Controllers
 			appointment.Amount = dto.Amount;
 			appointment.Observation = dto.Observation;
 			appointment.EditUser = dto.EditUser;
-			appointment.EditDate = DateTime.Now;
+			//appointment.EditDate = DateTime.Now;
 
 			await _context.SaveChangesAsync();
 

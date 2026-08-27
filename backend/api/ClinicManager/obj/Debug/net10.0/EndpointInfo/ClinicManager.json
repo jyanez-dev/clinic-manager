@@ -2513,6 +2513,7 @@
         "required": [
           "createUser",
           "docNum",
+          "docTypeId",
           "firstName1",
           "lastName1",
           "userId"
@@ -2535,6 +2536,10 @@
             "type": "integer",
             "format": "int32"
           },
+          "docTypeId": {
+            "type": "integer",
+            "format": "int32"
+          },
           "docNum": {
             "minLength": 1,
             "type": "string"
@@ -2551,6 +2556,42 @@
           "sex": {
             "type": "integer",
             "format": "int32"
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstName2": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName2": {
+            "type": "string",
+            "nullable": true
+          },
+          "birthDate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "tel1": {
+            "type": "string",
+            "nullable": true
+          },
+          "tel2": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobile1": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobile2": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -2634,6 +2675,7 @@
         "required": [
           "createUser",
           "docNum",
+          "docTypeId",
           "firstName1",
           "lastName1"
         ],
@@ -2646,6 +2688,18 @@
           "lastName1": {
             "minLength": 1,
             "type": "string"
+          },
+          "firstName2": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName2": {
+            "type": "string",
+            "nullable": true
+          },
+          "docTypeId": {
+            "type": "integer",
+            "format": "int32"
           },
           "docNum": {
             "minLength": 1,
@@ -2667,6 +2721,31 @@
           "sex": {
             "type": "integer",
             "format": "int32"
+          },
+          "birthDate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "tel1": {
+            "type": "string",
+            "nullable": true
+          },
+          "tel2": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobile1": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobile2": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -2853,7 +2932,7 @@
           },
           "birthDate": {
             "type": "string",
-            "format": "date-time",
+            "format": "date",
             "nullable": true
           },
           "sex": {
@@ -2922,6 +3001,9 @@
         "additionalProperties": false
       },
       "EmployeeDTO": {
+        "required": [
+          "docNum"
+        ],
         "type": "object",
         "properties": {
           "employeeId": {
@@ -2940,9 +3022,14 @@
             "type": "string",
             "nullable": true
           },
-          "docNum": {
-            "type": "string",
+          "docTypeId": {
+            "type": "integer",
+            "format": "int32",
             "nullable": true
+          },
+          "docNum": {
+            "minLength": 1,
+            "type": "string"
           },
           "email": {
             "type": "string",
@@ -2959,6 +3046,42 @@
           "sex": {
             "type": "integer",
             "format": "int32"
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstName2": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName2": {
+            "type": "string",
+            "nullable": true
+          },
+          "birthDate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "tel1": {
+            "type": "string",
+            "nullable": true
+          },
+          "tel2": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobile1": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobile2": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -3111,7 +3234,7 @@
           },
           "birthDate": {
             "type": "string",
-            "format": "date-time",
+            "format": "date",
             "nullable": true
           },
           "sex": {
@@ -3194,6 +3317,19 @@
             "type": "string",
             "nullable": true
           },
+          "firstName2": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName2": {
+            "type": "string",
+            "nullable": true
+          },
+          "docTypeId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
           "docNum": {
             "type": "string",
             "nullable": true
@@ -3213,6 +3349,36 @@
           "createUser": {
             "type": "integer",
             "format": "int32"
+          },
+          "birthDate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "tel1": {
+            "type": "string",
+            "nullable": true
+          },
+          "tel2": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobile1": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobile2": {
+            "type": "string",
+            "nullable": true
+          },
+          "editUser": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -3422,6 +3588,44 @@
           "sex": {
             "type": "integer",
             "format": "int32"
+          },
+          "docTypeId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstName2": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName2": {
+            "type": "string",
+            "nullable": true
+          },
+          "birthDate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "tel1": {
+            "type": "string",
+            "nullable": true
+          },
+          "tel2": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobile1": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobile2": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -3526,9 +3730,22 @@
             "minLength": 1,
             "type": "string"
           },
+          "firstName2": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName2": {
+            "type": "string",
+            "nullable": true
+          },
           "editUser": {
             "type": "integer",
             "format": "int32"
+          },
+          "docTypeId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
           },
           "docNum": {
             "type": "string",
@@ -3549,6 +3766,31 @@
           "sex": {
             "type": "integer",
             "format": "int32"
+          },
+          "birthDate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "tel1": {
+            "type": "string",
+            "nullable": true
+          },
+          "tel2": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobile1": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobile2": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

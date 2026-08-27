@@ -30,6 +30,17 @@ namespace ClinicManager.DTOs.Employees
 
 		public short Sex { get; set; }  // 0=unknown, 1=male, 2=female
 
+		public int? DocTypeId { get; set; }
+		public string? Address { get; set; }
+		public string? FirstName2 { get; set; }
+		public string? LastName2 { get; set; }
+		public DateOnly? BirthDate { get; set; }
+		public string? Tel1 { get; set; }
+		public string? Tel2 { get; set; }
+		public string? Mobile1 { get; set; }
+		public string? Mobile2 { get; set; }
+		
+
 
 	}
 }
